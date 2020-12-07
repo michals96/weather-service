@@ -3,7 +3,10 @@ package com.example.demo.controllers;
 import com.example.demo.entities.Weather;
 import com.example.demo.services.WeatherService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class WeatherController {
@@ -14,9 +17,11 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping("/weather")
-    public Weather weather(){
-        System.out.println(weatherService.getWeatherByCityAttributes("LDN"));
-        return new Weather("This", "Hello", 10.0);
+    @GetMapping(value = "/weather/{city}")
+    public Weather weather(@PathVariable String city){
+        
+        List<String> weatherByCityAttributes = weatherService.getWeatherByCityAttributes(city);
+
+        return new Weather(weatherByCityAttributes.get(0), weatherByCityAttributes.get(2), Double.valueOf(weatherByCityAttributes.get(1)) );
     }
 }

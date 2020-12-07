@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.repositories.WeatherRepository;
+import lombok.SneakyThrows;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,17 @@ public class WeatherServiceImpl implements WeatherService{
         this.weatherRepository = weatherRepository;
     }
 
+    @SneakyThrows
     @Override
     public List<String> getWeatherByCityAttributes(String cityName) {
 
-        JSONObject weatherByCityJSON = weatherRepository.getWeatherByCityJSON();
+        JSONObject weatherByCityJSON = weatherRepository.getWeatherByCityJSON(cityName);
 
-        List<String> weatherAttr = List.of(weatherByCityJSON.toString());
+        String temperature = weatherByCityJSON.getJSONObject("main").getString("temp");
+
+        String weatherState = weatherByCityJSON.getJSONArray("weather").getJSONObject(0).getString("description");
+
+        List<String> weatherAttr = List.of(cityName, temperature, weatherState);
 
         return weatherAttr;
     }

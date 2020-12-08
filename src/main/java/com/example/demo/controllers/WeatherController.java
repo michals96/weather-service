@@ -19,9 +19,15 @@ public class WeatherController {
 
     @GetMapping(value = "/weather/{city}")
     public Weather weather(@PathVariable String city){
-        
+
         List<String> weatherByCityAttributes = weatherService.getWeatherByCityAttributes(city);
 
         return new Weather(weatherByCityAttributes.get(0), weatherByCityAttributes.get(2), Double.valueOf(weatherByCityAttributes.get(1)) );
+    }
+
+    @GetMapping(value = "/forecast/{city}/{days}")
+    public List<Weather> forecast(@PathVariable String city, @PathVariable Integer days){
+
+        return weatherService.getForecastByCityAttributes(city, days);
     }
 }

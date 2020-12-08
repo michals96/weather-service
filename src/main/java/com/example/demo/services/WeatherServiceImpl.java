@@ -22,7 +22,7 @@ public class WeatherServiceImpl implements WeatherService{
 
     @SneakyThrows
     @Override
-    public List<String> getWeatherByCityAttributes(String cityName) {
+    public Weather getWeatherByCity(String cityName) {
 
         JSONObject weatherByCityJSON = weatherRepository.getWeatherByCityJSON(cityName);
 
@@ -30,14 +30,12 @@ public class WeatherServiceImpl implements WeatherService{
 
         String weatherState = weatherByCityJSON.getJSONArray("weather").getJSONObject(0).getString("description");
 
-        List<String> weatherAttr = List.of(cityName, temperature, weatherState);
-
-        return weatherAttr;
+        return new Weather(cityName, weatherState, Double.valueOf(temperature));
     }
 
     @SneakyThrows
     @Override
-    public List<Weather> getForecastByCityAttributes(String cityName, Integer days){
+    public List<Weather> getForecastByCity(String cityName, Integer days){
 
         JSONObject forecastByCityJSON = weatherRepository.getForecastByCityJSON(cityName, days);
 

@@ -29,3 +29,9 @@ public class WeatherController {
         return weatherService.getForecastByCity(city, days);
     }
 }
+
+/*
+    - naprawa tego filtra żeby ten principal działał
+    - dodać admina
+    - nowy endpoint, on ma mieć filtr na dostęp admina else 403/401
+ */

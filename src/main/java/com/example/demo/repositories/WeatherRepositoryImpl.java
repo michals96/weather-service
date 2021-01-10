@@ -12,7 +12,7 @@ import java.net.http.HttpResponse;
 
 @Repository
 @Component("weatherRepositoryImpl")
-public class WeatherRepositoryImpl implements WeatherRepository{
+class WeatherRepositoryImpl implements WeatherRepository{
 
     @SneakyThrows
     @Override

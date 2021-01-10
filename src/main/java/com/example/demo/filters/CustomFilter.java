@@ -19,10 +19,10 @@ public class CustomFilter extends GenericFilterBean {
             ServletRequest request,
             ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
-        /*UserDetails principal = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails principal = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         logger.info(principal.getUsername());
-        logger.info(request.getServerName());*/
+        logger.info(request.getServerName());
         chain.doFilter(request, response);
 
     }

@@ -13,8 +13,8 @@ public class WeatherServiceApplication extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.addFilter(
-				new CustomFilter());
+		http.addFilterBefore(
+				new CustomFilter(), BasicAuthenticationFilter.class);
 	}
 
 	public static void main(String[] args) {

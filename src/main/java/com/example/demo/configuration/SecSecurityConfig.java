@@ -1,6 +1,7 @@
 package com.example.demo.configuration;
 
 import com.example.demo.filters.CustomFilter;
+import com.example.demo.filters.JSONWebTokenFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -45,5 +46,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(
                 new CustomFilter(), BasicAuthenticationFilter.class);
+
+        http.addFilter(new JSONWebTokenFilter(authenticationManager()));
     }
 }

@@ -64,3 +64,10 @@ public class JSONWebTokenFilter extends BasicAuthenticationFilter {
     }
 
 }
+
+
+// USER TOKEN
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwicGFzc3dvcmQiOiJ1c2VyMSIsInJvbGUiOiJST0xFX1VTRVIifQ.dmPikVsdIREkmyqmn_cUBd62ZMRYR5QpaKwL7Vr6A-g
+
+// ADMIN TOKEN
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwicGFzc3dvcmQiOiJ1c2VyMSIsInJvbGUiOiJST0xFX0FETUlOIn0.3qLxEUejF3AwRS5nOxpf6X4zWo7Rtpa_6KdJQUxSo_E

@@ -2,7 +2,9 @@ package com.example.demo.configuration;
 
 import com.example.demo.filters.CustomFilter;
 import com.example.demo.filters.JsonObjectAuthenticationFilter;
+import com.example.demo.filters.JwtAuthorizationFilter;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
@@ -58,15 +61,18 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/login*").permitAll()
                 .antMatchers("/weather/**").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 //and()
                 //.formLogin()
                 //.loginPage("/login.html")
                 .and()
-                .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilter(authenticationFilter())
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), super.userDetailsService(), "secretForEncodingSignature"))
                 .exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
 
-        http.addFilterBefore(
-                new CustomFilter(), BasicAuthenticationFilter.class);
+        /* http.addFilterBefore(
+                new CustomFilter(), BasicAuthenticationFilter.class);*/
     }
 }

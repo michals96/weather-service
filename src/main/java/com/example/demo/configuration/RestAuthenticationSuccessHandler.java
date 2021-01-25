@@ -16,6 +16,8 @@ import java.util.Date;
 
 @Component
 public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+    // Deletes redirection to / path
     /* @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
@@ -37,6 +39,5 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
                 .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime))
                 .sign(Algorithm.HMAC256(secret));
         response.addHeader("Authorization", "Bearer " + token);
-       // response.getOutputStream().print("{\"token\": \"" + token + "\"}");
     }
 }

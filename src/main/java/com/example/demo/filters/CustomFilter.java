@@ -38,10 +38,12 @@ public class CustomFilter extends GenericFilterBean {
                 SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
                 !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
 
-            UserDetails principal = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            System.out.println("USER IS LOGGED IN!");
+
+            /* UserDetails principal = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             logger.info("USER: " + principal.getUsername());
             logger.info("SERVER:" + request.getServerName());
-            logger.info("ROLES:" + principal.getAuthorities());
+            logger.info("ROLES:" + principal.getAuthorities());*/
 
         }
     }

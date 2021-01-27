@@ -1,23 +1,44 @@
 package com.example.demo.configuration;
 
 import com.example.demo.filters.CustomFilter;
+import com.example.demo.filters.JsonObjectAuthenticationFilter;
+import com.example.demo.filters.JwtAuthorizationFilter;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final RestAuthenticationFailureHandler authenticationFailureHandler;
+    private final RestAuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public JsonObjectAuthenticationFilter authenticationFilter() throws Exception {
+        JsonObjectAuthenticationFilter filter = new JsonObjectAuthenticationFilter();
+        filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
+        filter.setAuthenticationFailureHandler(authenticationFailureHandler);
+        filter.setAuthenticationManager(super.authenticationManager());
+        return filter;
     }
 
     @Override
@@ -35,15 +56,23 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/").permitAll()
                 .antMatchers("/forecast/**").hasRole("ADMIN")
-                .antMatchers("/login*").permitAll()
+                //.antMatchers("/login*").permitAll()
                 .antMatchers("/weather/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login.html");
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                //and()
+                //.formLogin()
+                //.loginPage("/login.html")
+                .and()
+                .addFilter(authenticationFilter())
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), super.userDetailsService(), "secretForEncodingSignature"))
+                .exceptionHandling()
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
 
-        http.addFilterBefore(
-                new CustomFilter(), BasicAuthenticationFilter.class);
+        /* http.addFilterBefore(
+                new CustomFilter(), BasicAuthenticationFilter.class);*/
     }
 }

@@ -18,11 +18,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     private final RestAuthenticationFailureHandler authenticationFailureHandler;
     private final RestAuthenticationSuccessHandler authenticationSuccessHandler;
@@ -52,9 +54,22 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void addCorsMappings(CorsRegistry registry){
+        registry.addMapping("/**").allowedOrigins("*")
+                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
+                .allowedHeaders("*");
+    }
+
+    @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
+                .cors()
+                .and()
                 .csrf().disable()
+                .headers()
+                .frameOptions()
+                .deny()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/forecast/**").hasRole("ADMIN")

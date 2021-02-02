@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route } from "react-router-dom";
-//import interceptors from "../src/Interceptors";
+import interceptors from "../src/Interceptors";
 import login from "./Login";
 import dashboard from "./Dashboard";
 

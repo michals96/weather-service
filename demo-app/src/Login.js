@@ -15,7 +15,7 @@ class login extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-    const endpoint = "http://localhost:8080/login";
+    const endpoint = "http://10.0.2.2:8080/login";
 
     const username = this.state.username;
     const password = this.state.password;
@@ -27,17 +27,28 @@ class login extends Component {
 
     axios.post(endpoint, user_object).then(res => {
       localStorage.setItem("authorization", res.data.token);
+
+      /*console.log(res);
+      console.log(res.headers);
+      console.log(res.data.token);*/
+
+      axios.interceptors.request.use(
+        function(config) {
+            config.headers["authorization"] = "Bearer " + res.data.token;
+          return config;
+        },
+        function(err) {
+          return Promise.reject(err);
+        }
+      );
+
       return this.handleDashboard();
     });
   };
 
   handleDashboard() {
-    axios.get("http://localhost:8080/weather/London").then(res => {
-      if (res.data === "success") {
+    axios.get("http://10.0.2.2:8080/weather/London").then(res => {
         this.props.history.push("/weather/London");
-      } else {
-        alert("Authentication failure");
-      }
     });
   }
 

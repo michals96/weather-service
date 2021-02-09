@@ -27,27 +27,12 @@ class login extends Component {
 
     axios.post(endpoint, user_object).then(res => {
       localStorage.setItem("authorization", res.data.token);
-
-      /*console.log(res);
-      console.log(res.headers);
-      console.log(res.data.token);*/
-
-      axios.interceptors.request.use(
-        function(config) {
-            config.headers["authorization"] = "Bearer " + res.data.token;
-          return config;
-        },
-        function(err) {
-          return Promise.reject(err);
-        }
-      );
-
       return this.handleDashboard();
     });
   };
 
   handleDashboard() {
-    axios.get("http://10.0.2.2:8080/weather/London").then(res => {
+    axios.get("http://10.0.2.2:8080/weather/London", this.config).then(res => {
         this.props.history.push("/weather/London");
     });
   }

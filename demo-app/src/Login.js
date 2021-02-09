@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { setToken } from "./Interceptors";
 
 class login extends Component {
   constructor() {
@@ -27,12 +28,15 @@ class login extends Component {
 
     axios.post(endpoint, user_object).then(res => {
       localStorage.setItem("authorization", res.data.token);
+      setToken();
       return this.handleDashboard();
     });
   };
-
+  
   handleDashboard() {
-    axios.get("http://10.0.2.2:8080/weather/London", this.config).then(res => {
+    const promise = axios.get("http://10.0.2.2:8080/weather/London");
+    
+    promise.then(res => {
         this.props.history.push("/weather/London");
     });
   }

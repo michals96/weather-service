@@ -50,6 +50,7 @@ class login extends Component {
     return (
       <div>
         <div class="wrapper">
+          <HelloWorld info="123"/>
           <form class="form-signin">
             <h2 class="form-signin-heading">Please login</h2>
             <div className="form-group">

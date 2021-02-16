@@ -10,12 +10,9 @@ class login extends Component {
       username: null,
       password: null
     };
-
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange({ target }) {
+  handleChange= ({ target }) => {
     this.setState({
       [target.name]: target.value
     });

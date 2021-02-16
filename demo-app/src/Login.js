@@ -7,16 +7,21 @@ class login extends Component {
     super();
 
     this.state = {
-      username: "admin",
-      password: "admin"
+      username: null,
+      password: null
     };
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
+
+  handleChange= ({ target }) => {
+    this.setState({
+      [target.name]: target.value
+    });
   }
 
   handleFormSubmit = event => {
     event.preventDefault();
 
-    const endpoint = "http://10.0.2.2:8080/login";
+    const endpoint = "http://localhost:8080/login";
 
     const username = this.state.username;
     const password = this.state.password;
@@ -34,7 +39,7 @@ class login extends Component {
   };
   
   handleDashboard() {
-    const promise = axios.get("http://10.0.2.2:8080/weather/London");
+    const promise = axios.get("http://localhost:8080/weather/London");
     
     promise.then(res => {
         this.props.history.push("/weather/London");
@@ -45,23 +50,27 @@ class login extends Component {
     return (
       <div>
         <div class="wrapper">
-          <form class="form-signin" onSubmit={this.handleFormSubmit}>
+          <form class="form-signin">
             <h2 class="form-signin-heading">Please login</h2>
             <div className="form-group">
               <input type="text"
+                name="username"
                 class="form-control"
-                placeholder="User name"
-                value="admin"
+                placeholder="Login"
+                value={ this.state.username }
+                onChange={ this.handleChange }
               />
             </div>
             <div className="form-group">
               <input type="password"
+                name="password"
                 class="form-control"
-                placeholder="password"
-                value="admin"
+                placeholder="Password"
+                value={ this.state.password }
+                onChange={ this.handleChange }
               />
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">
+            <button class="btn btn-lg btn-primary btn-block" type="submit" onClick={ this.handleFormSubmit }>
               Login
             </button>
           </form>

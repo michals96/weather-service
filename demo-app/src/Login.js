@@ -42,7 +42,7 @@ class login extends Component {
     const promise = axios.get("http://10.0.2.2:8080/weather/London");
     
     promise.then(res => {
-        this.props.history.push("/weather/London");
+        this.props.history.push("/homepage");
     });
   }
 

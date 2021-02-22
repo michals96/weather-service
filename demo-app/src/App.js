@@ -1,19 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route } from "react-router-dom";
-import interceptors from "../src/Interceptors";
-import login from "./Login";
-import dashboard from "./Dashboard";
-import homepage from "./HomePage";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import login from "./components/Login";
+import dashboard from "./components/Dashboard";
+import homepage from "./components/HomePage";
+import PrivateRoute from "./components/restricted-routes/PrivateRoute";
+import PublicRoute from "./components/restricted-routes/PublicRoute";
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <BrowserRouter>
-          <Route exact path="/" component={login} />
-          <Route exact path="/dashboard" component={dashboard} />
-          <Route exact path="/homepage" component={homepage} />
+          <PublicRoute restricted={true} exact path="/" component={login}/>
+          <PrivateRoute exact path="/dashboard" component={dashboard}/>
+          <PrivateRoute exact path="/homepage" component={homepage}/>
         </BrowserRouter>
       </header>
     </div>

@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import interceptors from "../src/Interceptors";
 import login from "./Login";
 import dashboard from "./Dashboard";
+import homepage from "./HomePage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <BrowserRouter>
           <Route exact path="/" component={login} />
           <Route exact path="/dashboard" component={dashboard} />
+          <Route exact path="/homepage" component={homepage} />
         </BrowserRouter>
       </header>
     </div>

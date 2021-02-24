@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { setToken } from "./Interceptors";
-
+import logo from "../weather.png"
 class login extends Component {
   constructor() {
     super();
@@ -49,6 +49,9 @@ class login extends Component {
   render() {
     return (
       <div>
+       <div class="custom-img">
+       <img src={logo} alt={"logo"}/>
+       </div>
         <div class="wrapper">
           <form class="form-signin">
             <h2 class="form-signin-heading">Please login</h2>

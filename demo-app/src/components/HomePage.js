@@ -1,48 +1,63 @@
 import React, { Component } from "react";
 import WeatherItems from "./WeatherItems";
+import "../style/weatherList.css";
 
 class homepage extends Component {
-    constructor(props){
-        super(props);
-        this.addItem = this.addItem.bind(this);
+  constructor(props) {
+    super(props);
+    
+    this.addItem = this.addItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
 
-        this.state = {
-            items: []
+    this.state = {
+      items: [],
+    };
+  }
+
+  addItem(e) {
+    if (this._inputElement.value !== "") {
+      var newItem = {
+        text: this._inputElement.value,
+        key: Date.now(),
+      };
+
+      this.setState((prevState) => {
+        return {
+          items: prevState.items.concat(newItem),
         };
+      });
+
+      this._inputElement.value = "";
     }
 
-    addItem(e){
-        if(this._inputElement.value !== ""){
-            var newItem = {
-                text: this._inputElement.value,
-                key: Date.now()
-            };
+    console.log(this.state.items);
 
-            this.setState((prevState) => {
-                return {
-                    items: prevState.items.concat(newItem)
-                };
-            });
+    e.preventDefault();
+  }
 
-            this._inputElement.value = "";
-        }
+  deleteItem(key) {
+    var filteredItems = this.state.items.filter(function (item) {
+      return item.key !== key;
+    });
 
-        console.log(this.state.items);
-
-        e.preventDefault();
-    }
+    this.setState({
+      items: filteredItems,
+    });
+  }
 
   render() {
     return (
       <div className="todoListMain">
         <div className="header">
           <form onSubmit={this.addItem}>
-            <input ref ={(a) => this._inputElement = a}
-                placeholder="Enter city name"></input>
+            <input
+              ref={(a) => (this._inputElement = a)}
+              placeholder="Enter city name"
+            ></input>
             <button type="submit">add</button>
           </form>
         </div>
-        <WeatherItems entries={this.state.items}/>
+        <WeatherItems entries={this.state.items} delete={this.deleteItem} />
       </div>
     );
   }

@@ -1,8 +1,23 @@
 import React, { Component } from "react";
 
 class WeatherItems extends Component{
+
+    constructor(props){
+        super(props);
+
+        this.createWeatherItems = this.createWeatherItems.bind(this);
+    }
+
+    delete(key){
+        this.props.delete(key);
+    }
+
     createWeatherItems(item){
-        return <li key={item.key}>{item.text}</li>
+        return (
+            <li onClick={() => this.delete(item.key)} key={item.key}>
+              {item.text}
+            </li>
+          );
     }
 
     render(){

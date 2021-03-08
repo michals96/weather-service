@@ -39,3 +39,12 @@
     background-color: pink;
     cursor: pointer;
   }
+.counterListContainer{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.counter{
+    top: 10%;
+    left: 90%;
+    position: absolute;
+}

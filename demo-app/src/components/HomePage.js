@@ -11,8 +11,7 @@ class homepage extends Component {
     this.deleteItem = this.deleteItem.bind(this);
 
     this.state = {
-      items: [],
-      counter: 0,
+      items: []
     };
   }
 
@@ -25,6 +24,7 @@ class homepage extends Component {
 
       this.setState((prevState) => {
         return {
+          // 2 b fixed
           items: prevState.items.concat(newItem),
         };
       });

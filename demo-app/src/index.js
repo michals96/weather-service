@@ -7,17 +7,20 @@ import homepage from "./components/HomePage";
 import { combineReducers, createStore } from "redux";
 import { Provider } from "react-redux";
 
-const INITIAL_STATE_TODOS = {
-  todo_list: [],
-};
+const ADD_CITY = 'ADD_CITY';
+const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
+    
+export function addCity(city){
+    return {
+        type: ADD_CITY,
+        text: city,
+    }
+}
 
-function todos(state = INITIAL_STATE_TODOS, action) {
-  console.log("todos : ", action);
-  switch (action.type) {
-    case "ADD_TODO":
-      return { ...state, todo_list: state.todo_list.concat([action.text]) };
-    default:
-      return state;
+export function incrementCounter(weatherList){
+  return {
+    type: INCREMENT_COUNTER,
+    weatherList
   }
 }
 
@@ -40,7 +43,7 @@ function cities(state = INITIAL_STATE_CITIES, action) {
   }
 }
 
-const rootReducer = combineReducers({ todos, cities });
+const rootReducer = combineReducers({ cities });
 
 const store = createStore(
   rootReducer,

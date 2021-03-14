@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import WeatherItems from "./WeatherItems";
 import "../style/weatherList.css";
 import Counter from "./Counter";
+import { useDispatch, useSelector } from "react-redux";
+import { addCity } from "../index";
 
 class homepage extends Component {
+  
   constructor(props) {
     super(props);
 

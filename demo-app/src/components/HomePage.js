@@ -24,7 +24,6 @@ class homepage extends Component {
 
       this.setState((prevState) => {
         return {
-          // 2 b fixed
           items: prevState.items.concat(newItem),
         };
       });

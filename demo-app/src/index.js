@@ -8,7 +8,6 @@ import { combineReducers, createStore } from "redux";
 import { Provider } from "react-redux";
 
 const ADD_CITY = 'ADD_CITY';
-const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
     
 export function addCity(city){
     return {
@@ -17,20 +16,12 @@ export function addCity(city){
     }
 }
 
-export function incrementCounter(weatherList){
-  return {
-    type: INCREMENT_COUNTER,
-    weatherList
-  }
-}
-
 const INITIAL_STATE_CITIES = {
   city_list: [],
   count: 0,
 };
 
 function cities(state = INITIAL_STATE_CITIES, action) {
-  console.log("cities : ", action);
   switch (action.type) {
     case "ADD_CITY":
       return {
@@ -51,20 +42,6 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
 );
 
-setTimeout(() => {
-  store.dispatch({
-    type: "ADD_CITY",
-    text: "Warsaw",
-  });
-}, 3000);
-
-setTimeout(() => {
-  store.dispatch({
-    type: "ADD_CITY",
-    text: "Swiebodzin",
-  });
-}, 10000);
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -75,3 +52,5 @@ ReactDOM.render(
 );
 
 reportWebVitals();
+
+export default store;

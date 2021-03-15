@@ -3,7 +3,7 @@ import WeatherItems from "./WeatherItems";
 import "../style/weatherList.css";
 import Counter from "./Counter";
 import { useDispatch, useSelector } from "react-redux";
-import { addCity } from "../index";
+import store, { addCity } from "../index";
 
 class homepage extends Component {
   
@@ -14,13 +14,22 @@ class homepage extends Component {
     this.deleteItem = this.deleteItem.bind(this);
 
     this.state = {
-      items: []
+      items: [],
     };
+
+    store.subscribe(() => {
+      this.setState({
+        items: store.getState().items,
+      });
+    });
   }
 
   addItem(e) {
     if (this._inputElement.value !== "") {
-      var newItem = {
+
+      store.dispatch(addCity(this._inputElement.value));
+
+      /*var newItem = {
         text: this._inputElement.value,
         key: Date.now(),
       };
@@ -29,7 +38,7 @@ class homepage extends Component {
         return {
           items: prevState.items.concat(newItem),
         };
-      });
+      });*/
 
       this._inputElement.value = "";
     }

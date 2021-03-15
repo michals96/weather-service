@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import WeatherItems from "./WeatherItems";
 import "../style/weatherList.css";
 import Counter from "./Counter";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import store, { addCity } from "../index";
 
 class homepage extends Component {
@@ -16,12 +16,6 @@ class homepage extends Component {
     this.state = {
       items: [],
     };
-
-    store.subscribe(() => {
-      this.setState({
-        items: store.getState().items,
-      });
-    });
   }
 
   addItem(e) {
@@ -81,4 +75,9 @@ class homepage extends Component {
     );
   }
 }
-export default homepage;
+
+const mapStateToProps = (state) => ({
+  state: state
+ });
+
+export default connect(mapStateToProps)(homepage);

@@ -14,8 +14,8 @@ class WeatherItems extends Component {
 
   createWeatherItems(item) {
     return (
-      <li onClick={() => this.delete(item.key)} key={item.key}>
-        {item.text}
+      <li onClick={() => this.delete(item)} key={item}>
+        {item}
       </li>
     );
   }
@@ -35,3 +35,11 @@ class WeatherItems extends Component {
 }
 
 export default WeatherItems;
+
+/*
+REDUX Thunk lub Sagas lub Epics (Reactive extensions) -> do sprawdzenia
+* Walidacja dodawanych pól -> brak duplikatów + unikatowe klucze
+* Renderowanie rzeczywistej pogody o którą pytamy backend
+* Każdy weather iteam zawiera string + int (pogoda + temperatura)
+*/
+

@@ -2,61 +2,29 @@ import React, { Component } from "react";
 import WeatherItems from "./WeatherItems";
 import "../style/weatherList.css";
 import Counter from "./Counter";
+import { connect } from "react-redux";
+import { addCity, removeCity } from "../index";
 
-class homepage extends Component {
+export class Homepage extends Component {
   constructor(props) {
     super(props);
-
-    this.addItem = this.addItem.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-
-    this.state = {
-      items: []
-    };
   }
 
-  addItem(e) {
-    if (this._inputElement.value !== "") {
-      var newItem = {
-        text: this._inputElement.value,
-        key: Date.now(),
-      };
-
-      this.setState((prevState) => {
-        return {
-          // 2 b fixed
-          items: prevState.items.concat(newItem),
-        };
-      });
-
-      this._inputElement.value = "";
-    }
-
-    console.log(this.state.items);
-
+  handleSubmit = (e) => {
+    addCity(this._inputElement.value);
+    this._inputElement.value = "";
     e.preventDefault();
-  }
+  };
 
-  deleteItem(key) {
-    var filteredItems = this.state.items.filter(function (item) {
-      return item.key !== key;
-    });
-
-    this.setState({
-      items: filteredItems,
-    });
-  }
-
-  render() {
+  render(){
     return (
       <div className="counterListContainer">
         <div className="counter">
           <Counter />
         </div>
-
         <div className="todoListMain">
           <div className="header">
-            <form onSubmit={this.addItem}>
+            <form onSubmit={this.handleSubmit}>
               <input
                 ref={(a) => (this._inputElement = a)}
                 placeholder="Enter city name"
@@ -64,10 +32,29 @@ class homepage extends Component {
               <button type="submit">add</button>
             </form>
           </div>
-          <WeatherItems entries={this.state.items} delete={this.deleteItem} />
+          <WeatherItems
+            entries={this.props.cities}
+            delete={removeCity}
+          />
         </div>
       </div>
     );
   }
 }
-export default homepage;
+
+const mapStateToProps = (state) => ({
+  cities: state.cities.city_list,
+});
+
+/*const mapDispatchToProps = (dispatch) => {
+  return {
+    remove: (city) => dispatch(removeCity(city)),
+    add: (city) => {
+      return dispatch(addCity(city));
+    },
+  };
+};*/
+
+export default connect(mapStateToProps
+ // , mapDispatchToProps
+  )(Homepage);

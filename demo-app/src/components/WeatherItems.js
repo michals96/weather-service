@@ -1,38 +1,45 @@
 import React, { Component } from "react";
 import FlipMove from "react-flip-move";
 
-class WeatherItems extends Component{
+class WeatherItems extends Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props){
-        super(props);
+    this.createWeatherItems = this.createWeatherItems.bind(this);
+  }
 
-        this.createWeatherItems = this.createWeatherItems.bind(this);
-    }
+  delete(key) {
+    this.props.delete(key);
+  }
 
-    delete(key){
-        this.props.delete(key);
-    }
+  createWeatherItems(item) {
+    return (
+      <li onClick={() => this.delete(item)} key={item}>
+        {item}
+      </li>
+    );
+  }
 
-    createWeatherItems(item){
-        return (
-            <li onClick={() => this.delete(item.key)} key={item.key}>
-              {item.text}
-            </li>
-          );
-    }
+  render() {
+    var weatherEntries = this.props.entries;
+    var listWeatherItems = weatherEntries.map(this.createWeatherItems);
 
-    render(){
-        var weatherEntries = this.props.entries;
-        var listWeatherItems = weatherEntries.map(this.createWeatherItems);
-
-        return(
-            <ul className="theList">
-                <FlipMove duration={250} easing="ease-out">
-                    {listWeatherItems}
-                </FlipMove>
-            </ul>
-        )
-    }
+    return (
+      <ul className="theList">
+        <FlipMove duration={250} easing="ease-out">
+          {listWeatherItems}
+        </FlipMove>
+      </ul>
+    );
+  }
 }
 
 export default WeatherItems;
+
+/*
+REDUX Thunk lub Sagas lub Epics (Reactive extensions) -> do sprawdzenia
+* Walidacja dodawanych pól -> brak duplikatów + unikatowe klucze
+* Renderowanie rzeczywistej pogody o którą pytamy backend
+* Każdy weather iteam zawiera string + int (pogoda + temperatura)
+*/
+

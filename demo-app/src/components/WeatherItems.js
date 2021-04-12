@@ -4,7 +4,6 @@ import FlipMove from "react-flip-move";
 class WeatherItems extends Component {
   constructor(props) {
     super(props);
-
     this.createWeatherItems = this.createWeatherItems.bind(this);
   }
 
@@ -14,7 +13,7 @@ class WeatherItems extends Component {
 
   createWeatherItems(item) {
     return (
-      <li onClick={() => this.delete(item)} key={item}>
+      <li onClick={() => this.delete(item)} key={item.id}>
         {item}
       </li>
     );

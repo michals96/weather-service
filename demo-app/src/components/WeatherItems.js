@@ -36,10 +36,12 @@ class WeatherItems extends Component {
 
 export default WeatherItems;
 
-/*
-REDUX Thunk lub Sagas lub Epics (Reactive extensions) -> do sprawdzenia
-* Walidacja dodawanych pól -> brak duplikatów + unikatowe klucze
+/* TO DO:
+
 * Renderowanie rzeczywistej pogody o którą pytamy backend
-* Każdy weather iteam zawiera string + int (pogoda + temperatura)
+* Każdy weather iteam zawiera string + int (pogoda + miasto + temperatura)
+* REDUX Thunk lub Sagas lub Epics (Reactive extensions) -> do sprawdzenia
+* Walidacja dodawanych pól -> brak duplikatów + unikatowe klucze
+
 */
 

@@ -70,7 +70,7 @@ export default store;
 
 /* TO DO:
 
-* DONE:Renderowanie rzeczywistej pogody o którą pytamy backend
+* DONE: Renderowanie rzeczywistej pogody o którą pytamy backend
 * Każdy weather iteam zawiera string + int (pogoda + miasto + temperatura)
 * REDUX Thunk lub Sagas lub Epics (Reactive extensions) -> do sprawdzenia
 * Walidacja dodawanych pól -> brak duplikatów + unikatowe klucze

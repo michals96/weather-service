@@ -12,15 +12,26 @@ export class Homepage extends Component {
   }
 
   handleSubmit = (e) => {
+    var correctCity = true;
 
-    const promise = axios.get("http://localhost:8080/weather/" + this._inputElement.value);
-
-    promise.then(res => {
-        addCity(res.data.city + ", " + res.data.weatherState + ", " + res.data.temperature);
-        this._inputElement.value = "";
+    this.props.cities.map(city => {
+      if(city.includes(this._inputElement.value)){
+        correctCity = false;
+        alert("Try different city");
+      }
     });
 
-    
+    if(correctCity){
+      const promise = axios.get("http://localhost:8080/weather/" + this._inputElement.value);
+
+      promise.then(res => {
+          addCity(res.data.city + ", " + res.data.weatherState + ", " + res.data.temperature);
+          this._inputElement.value = "";
+      });
+    }
+
+    correctCity = true;
+
     e.preventDefault();
   };
 

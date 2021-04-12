@@ -69,10 +69,8 @@ reportWebVitals();
 export default store;
 
 /* TO DO:
-
 * DONE: Renderowanie rzeczywistej pogody o którą pytamy backend
-* Każdy weather iteam zawiera string + int (pogoda + miasto + temperatura)
+* DONE: Walidacja dodawanych pól -> brak duplikatów + unikatowe klucze
 * REDUX Thunk lub Sagas lub Epics (Reactive extensions) -> do sprawdzenia
-* Walidacja dodawanych pól -> brak duplikatów + unikatowe klucze
-
+* Każdy weather iteam zawiera string + int (pogoda + miasto + temperatura)
 */

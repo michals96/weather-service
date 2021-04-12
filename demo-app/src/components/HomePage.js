@@ -4,6 +4,7 @@ import "../style/weatherList.css";
 import Counter from "./Counter";
 import { connect } from "react-redux";
 import { addCity, removeCity } from "../index";
+import axios from "axios";
 
 export class Homepage extends Component {
   constructor(props) {
@@ -11,8 +12,15 @@ export class Homepage extends Component {
   }
 
   handleSubmit = (e) => {
-    addCity(this._inputElement.value);
-    this._inputElement.value = "";
+
+    const promise = axios.get("http://localhost:8080/weather/" + this._inputElement.value);
+
+    promise.then(res => {
+        addCity(res.data.city + ", " + res.data.weatherState + ", " + res.data.temperature);
+        this._inputElement.value = "";
+    });
+
+    
     e.preventDefault();
   };
 

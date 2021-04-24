@@ -3,7 +3,7 @@ import WeatherItems from "./WeatherItems";
 import "../style/weatherList.css";
 import Counter from "./Counter";
 import { connect } from "react-redux";
-import { addCity, removeCity } from "../index";
+import { addCity, addCityTemp, addCityTempDispatched, removeCity } from "../index";
 import axios from "axios";
 
 export class Homepage extends Component {
@@ -12,27 +12,33 @@ export class Homepage extends Component {
   }
 
   handleSubmit = (e) => {
-    var correctCity = true;
+    e.preventDefault();
 
-    this.props.cities.map(city => {
-      if(city.includes(this._inputElement.value)){
+    var correctCity = true;
+    
+    const cityName = this._inputElement.value;
+
+    this.props.cities.map(item => {
+      if(item.city.includes(cityName)){
         correctCity = false;
         alert("Try different city");
       }
     });
 
     if(correctCity){
-      const promise = axios.get("http://localhost:8080/weather/" + this._inputElement.value);
 
-      promise.then(res => {
-          addCity(res.data.city + ", " + res.data.weatherState + ", " + res.data.temperature);
-          this._inputElement.value = "";
-      });
+      addCity(cityName)
+      addCityTemp(cityName)
+
+      // const promise = axios.get("http://localhost:8080/weather/" + cityName);
+      // promise.then(res => {
+      //     addCityTemp(res.data);
+      //     console.log(this);
+      //     this._inputElement.value = "";
+      // });
     }
 
     correctCity = true;
-
-    e.preventDefault();
   };
 
   render(){
@@ -77,3 +83,11 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps
  // , mapDispatchToProps
   )(Homepage);
+
+
+  // Saga + Episcs + RX JS
+
+  // Interceptor + globalny loader
+  // Zapytanie do backendu (uzywamy axiosa), 
+  // wyswietlamy loader [GLOBALNIE]
+  // wrocilo zapytanie -> chowamy loader

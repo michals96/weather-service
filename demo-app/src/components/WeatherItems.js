@@ -13,8 +13,8 @@ class WeatherItems extends Component {
 
   createWeatherItems(item) {
     return (
-      <li onClick={() => this.delete(item)} key={item.id}>
-        {item}
+      <li onClick={() => this.delete(item.city)} key={item.city}>
+        {item.city}, {item.temperature}, {item.weatherState}
       </li>
     );
   }

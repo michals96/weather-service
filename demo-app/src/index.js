@@ -73,7 +73,7 @@ export const addCityTemp = (cityName) => store.dispatch(((cityName) => {
   };
 })(cityName));
 
-export const addCityTempDispatched = (cityName) => store.dispatch(addCityTemp(cityName))
+//export const addCityTempDispatched = (cityName) => store.dispatch(addCityTemp(cityName))
 
 export function addCity(city) {
   return store.dispatch({

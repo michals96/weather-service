@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import WeatherItems from "./WeatherItems";
+import CommentList from "../components/HOC/index";
+import BlogPost from "../components/HOC/indexTwo";
 import "../style/weatherList.css";
 import Counter from "./Counter";
 import { connect } from "react-redux";
@@ -61,6 +63,8 @@ export class Homepage extends Component {
             entries={this.props.cities}
             delete={removeCity}
           />
+          <BlogPost id={1}/>
+          <CommentList/>
         </div>
       </div>
     );
@@ -89,5 +93,6 @@ export default connect(mapStateToProps
 
   // Interceptor + globalny loader
   // Zapytanie do backendu (uzywamy axiosa), 
-  // wyswietlamy loader [GLOBALNIE]
-  // wrocilo zapytanie -> chowamy loader
+  // Wyswietlamy loader [GLOBALNIE]
+  // Wrocilo zapytanie -> chowamy loader
+  // Przecwiczyc HOC  

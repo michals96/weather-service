@@ -39,11 +39,11 @@ class login extends Component {
   };
   
   handleDashboard() {
-    const promise = axios.get("http://localhost:8080/weather/London");
+    //const promise = axios.get("http://localhost:8080/weather/London");
     
-    promise.then(res => {
+    //promise.then(res => {
         this.props.history.push("/homepage");
-    });
+    //});
   }
 
   render() {

@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import WeatherItems from "./WeatherItems";
-import CommentList from "../components/HOC/index";
-import BlogPost from "../components/HOC/indexTwo";
 import "../style/weatherList.css";
 import Counter from "./Counter";
 import { connect } from "react-redux";
-import { addCity, addCityTemp, addCityTempDispatched, removeCity } from "../index";
-import axios from "axios";
+import { addCity, addCityTemp, removeCity } from "../index";
 
 export class Homepage extends Component {
   constructor(props) {
@@ -28,16 +25,8 @@ export class Homepage extends Component {
     });
 
     if(correctCity){
-
       addCity(cityName)
       addCityTemp(cityName)
-
-      // const promise = axios.get("http://localhost:8080/weather/" + cityName);
-      // promise.then(res => {
-      //     addCityTemp(res.data);
-      //     console.log(this);
-      //     this._inputElement.value = "";
-      // });
     }
 
     correctCity = true;
@@ -63,8 +52,10 @@ export class Homepage extends Component {
             entries={this.props.cities}
             delete={removeCity}
           />
+          {/* RENDER HIGH ORDER COMPONENTS:
           <BlogPost id={1}/>
-          <CommentList/>
+          <CommentList/> 
+          */} 
         </div>
       </div>
     );
@@ -75,24 +66,16 @@ const mapStateToProps = (state) => ({
   cities: state.cities.city_list,
 });
 
-/*const mapDispatchToProps = (dispatch) => {
-  return {
-    remove: (city) => dispatch(removeCity(city)),
-    add: (city) => {
-      return dispatch(addCity(city));
-    },
-  };
-};*/
+export default connect(mapStateToProps)(Homepage);
 
-export default connect(mapStateToProps
- // , mapDispatchToProps
-  )(Homepage);
+  // 1. Interceptor + globalny loader*
+  // 2. Refactor: pattern dla redux - reducers, store, actions
+  // 3. Refactor dasboard: logout mechanism
+  // 4. Know-how : Saga + Episcs + RX JS
 
-
-  // Saga + Episcs + RX JS
-
-  // Interceptor + globalny loader
-  // Zapytanie do backendu (uzywamy axiosa), 
-  // Wyswietlamy loader [GLOBALNIE]
-  // Wrocilo zapytanie -> chowamy loader
-  // Przecwiczyc HOC  
+  /* 
+   * Zapytanie do backendu (uzywamy axiosa), 
+   Wyswietlamy loader [GLOBALNIE]
+   Wrocilo zapytanie -> chowamy loader
+   Przecwiczyc HOC 
+   */ 

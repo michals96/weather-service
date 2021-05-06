@@ -60,8 +60,6 @@ const logger = store => next => action => {
 const store = createStore(
   rootReducer,
   applyMiddleware(logger, thunk)
-  // window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-  //   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
 );
 
 export const addCityTemp = (cityName) => store.dispatch(((cityName) => {
@@ -73,21 +71,12 @@ export const addCityTemp = (cityName) => store.dispatch(((cityName) => {
   };
 })(cityName));
 
-//export const addCityTempDispatched = (cityName) => store.dispatch(addCityTemp(cityName))
-
 export function addCity(city) {
   return store.dispatch({
     type: ADD_CITY,
     text: city,
   });
 }
-
-// export function addCityTemp(payload) {
-//   return store.dispatch({
-//     type: ADD_CITY_TEMP,
-//     payload,
-//   })
-// }
 
 export function removeCity(city) {
   return store.dispatch({
@@ -108,10 +97,3 @@ ReactDOM.render(
 reportWebVitals();
 
 export default store;
-
-/* TO DO:
-* DONE: Renderowanie rzeczywistej pogody o którą pytamy backend
-* DONE: Walidacja dodawanych pól -> brak duplikatów + unikatowe klucze
-* REDUX Thunk lub Sagas lub Epics (Reactive extensions) -> do sprawdzenia
-* Każdy weather iteam zawiera string + int (pogoda + miasto + temperatura)
-*/

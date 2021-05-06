@@ -74,8 +74,8 @@ export default connect(mapStateToProps)(Homepage);
   // 4. Know-how : Saga + Episcs + RX JS
 
   /* 
-   * Zapytanie do backendu (uzywamy axiosa), 
-   Wyswietlamy loader [GLOBALNIE]
-   Wrocilo zapytanie -> chowamy loader
-   Przecwiczyc HOC 
+   *  Zapytanie do backendu (uzywamy axiosa), 
+      Wyswietlamy loader [GLOBALNIE]
+      Wrocilo zapytanie -> chowamy loader
+      Przecwiczyc HOC 
    */ 

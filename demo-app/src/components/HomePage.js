@@ -72,6 +72,8 @@ export default connect(mapStateToProps)(Homepage);
   // 2. Refactor: pattern dla redux - reducers, store, actions
   // 3. Refactor dasboard: logout mechanism
   // 4. Know-how : Saga + Episcs + RX JS
+  // thunk + middleware
+  //https://www.npmjs.com/package/react-redux-loading
 
   /* 
    *  Zapytanie do backendu (uzywamy axiosa), 

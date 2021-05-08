@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { setToken } from "./Interceptors";
 import logo from "../weather.png"
+import { sleeper, requestSent, requestSucceded } from "../index";
+import { connect } from "react-redux";
+import CustomLoader from "./CustomLoader";
 
 class login extends Component {
   constructor() {
@@ -32,9 +35,13 @@ class login extends Component {
       password: password
     };
 
-    axios.post(endpoint, user_object).then(res => {
+    axios.post(endpoint, user_object)
+    .then(requestSent())
+    .then(sleeper(1000))
+    .then(res => {
       localStorage.setItem("authorization", res.data.token);
       setToken();
+      requestSucceded();
       return this.handleDashboard();
     });
   };
@@ -52,6 +59,7 @@ class login extends Component {
         <div class="wrapper">
           <form class="form-signin">
             <h2 class="form-signin-heading">Please login</h2>
+            {this.props.isLoading && <CustomLoader/>}
             <div className="form-group">
               <input type="text"
                 name="username"
@@ -79,4 +87,9 @@ class login extends Component {
     );
   }
 }
-export default login;
+
+const mapStateToProps = (state) => ({
+  isLoading: state.cities.isLoading,
+});
+
+export default connect(mapStateToProps)(login);

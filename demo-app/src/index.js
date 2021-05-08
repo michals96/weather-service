@@ -72,10 +72,18 @@ const logger = (store) => (next) => (action) => {
 
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
-function sleeper(ms) {
+export function sleeper(ms) {
   return function (x) {
     return new Promise((resolve) => setTimeout(() => resolve(x), ms));
   };
+}
+
+export function requestSent(){
+  return store.dispatch({ type: REQUEST_SENT });
+}
+
+export function requestSucceded(){
+  return store.dispatch({ type: REQUEST_SUCCEEDED });
 }
 
 export const addCityTemp = (cityName) =>

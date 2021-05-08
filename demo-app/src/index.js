@@ -5,16 +5,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 import axios from "axios";
 
 const ADD_CITY = "ADD_CITY";
 const ADD_CITY_TEMP = "ADD_CITY_TEMP";
 const REMOVE_CITY = "REMOVE_CITY";
+const REQUEST_SENT = "REQUEST_SENT";
+const REQUEST_SUCCEEDED = "REQUEST_SUCCEEDED";
 
 const INITIAL_STATE_CITIES = {
   city_list: [],
   count: 0,
+  isLoading: false
 };
 
 function cities(state = INITIAL_STATE_CITIES, action) {
@@ -22,27 +25,37 @@ function cities(state = INITIAL_STATE_CITIES, action) {
     case ADD_CITY:
       return {
         ...state,
-        city_list: state.city_list.concat([{city : action.text}]),
+        city_list: state.city_list.concat([{ city: action.text }]),
         count: state.count + 1,
       };
     case ADD_CITY_TEMP:
-      return{
+      return {
         ...state,
-        city_list: state.city_list.map(city => {
-          if(city.city === action.payload.city){
+        city_list: state.city_list.map((city) => {
+          if (city.city === action.payload.city) {
             return {
-              ...action.payload
-            }
+              ...action.payload,
+            };
           }
           return city;
-        })
-      }
+        }),
+      };
     case REMOVE_CITY:
       return {
         ...state,
         city_list: state.city_list.filter((city) => city.city !== action.text),
         count: state.count - 1,
       };
+    case REQUEST_SENT:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case REQUEST_SUCCEEDED:
+      return {
+        ...state,
+        isLoading: false
+      }
     default:
       return state;
   }
@@ -50,32 +63,37 @@ function cities(state = INITIAL_STATE_CITIES, action) {
 
 const rootReducer = combineReducers({ cities });
 
-const logger = store => next => action => {
-  console.log('dispatching', action)
-  let result = next(action)
-  console.log('next state', store.getState())
-  return result
-}
+const logger = (store) => (next) => (action) => {
+  console.log("dispatching", action);
+  let result = next(action);
+  console.log("next state", store.getState());
+  return result;
+};
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(logger, thunk)
-);
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 function sleeper(ms) {
-  return function(x) {
-    return new Promise(resolve => setTimeout(() => resolve(x), ms));
+  return function (x) {
+    return new Promise((resolve) => setTimeout(() => resolve(x), ms));
   };
 }
 
-export const addCityTemp = (cityName) => store.dispatch(((cityName) => {
-  return (dispatch) => {
-    return axios.get("http://localhost:8080/weather/" + cityName).then(sleeper(1000)).then(  
-      res => dispatch({ type: ADD_CITY_TEMP, payload: res.data }),
-      err => {}
-    );
-  };
-})(cityName));
+export const addCityTemp = (cityName) =>
+  store.dispatch(
+    ((cityName) => {
+      return async (dispatch) => {
+        dispatch({ type: "REQUEST_SENT" });
+        const res = await axios
+          .get("http://localhost:8080/weather/" + cityName)
+          .then(sleeper(1000))
+          .then(
+            (res) => dispatch({ type: ADD_CITY_TEMP, payload: res.data }),
+            (err) => {}
+          );
+        dispatch({ type: "REQUEST_SUCCEEDED" });
+      };
+    })(cityName)
+  );
 
 export function addCity(city) {
   return store.dispatch({

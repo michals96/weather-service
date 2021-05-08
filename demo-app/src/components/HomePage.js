@@ -4,6 +4,8 @@ import "../style/weatherList.css";
 import Counter from "./Counter";
 import { connect } from "react-redux";
 import { addCity, addCityTemp, removeCity } from "../index";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 export class Homepage extends Component {
   constructor(props) {
@@ -14,25 +16,25 @@ export class Homepage extends Component {
     e.preventDefault();
 
     var correctCity = true;
-    
+
     const cityName = this._inputElement.value;
 
-    this.props.cities.map(item => {
-      if(item.city.includes(cityName)){
+    this.props.cities.map((item) => {
+      if (item.city.includes(cityName)) {
         correctCity = false;
         alert("Try different city");
       }
     });
 
-    if(correctCity){
-      addCityTemp(cityName)
-      addCity(cityName)
+    if (correctCity) {
+      addCityTemp(cityName);
+      addCity(cityName);
     }
 
     correctCity = true;
   };
 
-  render(){
+  render() {
     return (
       <div className="counterListContainer">
         <div className="counter">
@@ -48,14 +50,12 @@ export class Homepage extends Component {
               <button type="submit">add</button>
             </form>
           </div>
-          <WeatherItems
-            entries={this.props.cities}
-            delete={removeCity}
-          />
+          {this.props.isLoading && <Loader type="Puff" color="#00BFFF" height={100} width={100}/>}
+          <WeatherItems entries={this.props.cities} delete={removeCity} />
           {/* RENDER HIGH ORDER COMPONENTS:
           <BlogPost id={1}/>
           <CommentList/> 
-          */} 
+          */}
         </div>
       </div>
     );
@@ -64,20 +64,21 @@ export class Homepage extends Component {
 
 const mapStateToProps = (state) => ({
   cities: state.cities.city_list,
+  isLoading: state.cities.isLoading,
 });
 
 export default connect(mapStateToProps)(Homepage);
 
-  // 1. Interceptor + globalny loader*
-  // 2. Refactor: pattern dla redux - reducers, store, actions
-  // 3. Refactor dasboard: logout mechanism
-  // 4. Know-how : Saga + Episcs + RX JS
-  // thunk + middleware
-  //https://www.npmjs.com/package/react-redux-loading
+// 1. Interceptor + globalny loader*
+// 2. Refactor: pattern dla redux - reducers, store, actions
+// 3. Refactor dasboard: logout mechanism
+// 4. Know-how : Saga + Episcs + RX JS
+// thunk + middleware
+//https://www.npmjs.com/package/react-redux-loading
 
-  /* 
+/* 
    *  Zapytanie do backendu (uzywamy axiosa), 
       Wyswietlamy loader [GLOBALNIE]
       Wrocilo zapytanie -> chowamy loader
       Przecwiczyc HOC 
-   */ 
+   */

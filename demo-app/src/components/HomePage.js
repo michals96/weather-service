@@ -25,8 +25,8 @@ export class Homepage extends Component {
     });
 
     if(correctCity){
-      addCity(cityName)
       addCityTemp(cityName)
+      addCity(cityName)
     }
 
     correctCity = true;

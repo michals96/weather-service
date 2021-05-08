@@ -62,9 +62,15 @@ const store = createStore(
   applyMiddleware(logger, thunk)
 );
 
+function sleeper(ms) {
+  return function(x) {
+    return new Promise(resolve => setTimeout(() => resolve(x), ms));
+  };
+}
+
 export const addCityTemp = (cityName) => store.dispatch(((cityName) => {
   return (dispatch) => {
-    return axios.get("http://localhost:8080/weather/" + cityName).then(  
+    return axios.get("http://localhost:8080/weather/" + cityName).then(sleeper(1000)).then(  
       res => dispatch({ type: ADD_CITY_TEMP, payload: res.data }),
       err => {}
     );

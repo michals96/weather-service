@@ -4,8 +4,7 @@ import "../style/weatherList.css";
 import Counter from "./Counter";
 import { connect } from "react-redux";
 import { addCity, addCityTemp, removeCity } from "../index";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
+import CustomLoader from "./CustomLoader";
 
 export class Homepage extends Component {
   constructor(props) {
@@ -50,8 +49,9 @@ export class Homepage extends Component {
               <button type="submit">add</button>
             </form>
           </div>
-          {this.props.isLoading && <Loader type="Puff" color="#00BFFF" height={100} width={100}/>}
+          
           <WeatherItems entries={this.props.cities} delete={removeCity} />
+          {this.props.isLoading && <CustomLoader/>}
           {/* RENDER HIGH ORDER COMPONENTS:
           <BlogPost id={1}/>
           <CommentList/> 

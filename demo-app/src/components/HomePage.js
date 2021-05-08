@@ -26,8 +26,8 @@ export class Homepage extends Component {
     });
 
     if (correctCity) {
-      addCityTemp(cityName);
       addCity(cityName);
+      addCityTemp(cityName);
     }
 
     correctCity = true;
@@ -70,10 +70,10 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(Homepage);
 
 // 1. Interceptor + globalny loader*
-// 2. Refactor: pattern dla redux - reducers, store, actions
+// 2. Refactor: clean code + pattern dla redux - reducers, store, actions
 // 3. Refactor dasboard: logout mechanism
 // 4. Know-how : Saga + Episcs + RX JS
-// thunk + middleware
+// Thunk + middleware
 //https://www.npmjs.com/package/react-redux-loading
 
 /* 
@@ -81,4 +81,4 @@ export default connect(mapStateToProps)(Homepage);
       Wyswietlamy loader [GLOBALNIE]
       Wrocilo zapytanie -> chowamy loader
       Przecwiczyc HOC 
-   */
+*/

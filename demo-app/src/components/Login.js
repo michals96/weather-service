@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { setToken } from "./Interceptors";
 import logo from "../weather.png"
+
 class login extends Component {
   constructor() {
     super();

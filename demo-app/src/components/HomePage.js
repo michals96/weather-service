@@ -69,7 +69,11 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps)(Homepage);
 
-// 1. Interceptor + globalny loader*
+// 1. Interceptor + globalny loader* + Loader jako interceptor przy lgoowaniu
+//    CustomLoader powinien mieć w środku info isLoading lub gdzieś tam property
+// 1b. HigherOrderWithLoader na nowy component
+// 1c.  isLoading: state.cities.isLoading, z homepagejs do customloadera
+// 1d. usun sleeper, uzyj no throttling
 // 2. Refactor: clean code + pattern dla redux - reducers, store, actions
 // 3. Refactor dasboard: logout mechanism
 // 4. Know-how : Saga + Episcs + RX JS

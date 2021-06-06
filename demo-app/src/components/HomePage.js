@@ -51,7 +51,7 @@ export class Homepage extends Component {
           </div>
           
           <WeatherItems entries={this.props.cities} delete={removeCity} />
-          {this.props.isLoading && <CustomLoader/>}
+          {<CustomLoader/>}
         </div>
       </div>
     );
@@ -65,15 +65,15 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps)(Homepage);
 
-// TO DO:
+// DONE:
+//    -> refactor: clean code + pattern dla redux - reducers, store, actions
 //    -> Loader jako interceptor przy logowaniu 
 //    -> CustomLoader powinien mieć w środku info isLoading lub gdzieś tam property
 //    -> isLoading: state.cities.isLoading, z homepagejs do customloadera
 //    -> usun sleeper, uzyj no throttling
+
+// TO DO:
 //    -> Refactor dasboard: logout mechanism
 //    -> Know-how : Saga + Episcs + RX JS
 //    -> HigherOrderWithLoader na nowy component
 //    -> Thunk + middleware
-
-// DONE:
-//    -> refactor: clean code + pattern dla redux - reducers, store, actions

@@ -55,7 +55,7 @@ class login extends Component {
         <div class="wrapper">
           <form class="form-signin">
             <h2 class="form-signin-heading">Please login</h2>
-            {this.props.isLoading && <CustomLoader/>}
+            {<CustomLoader/>}
             <div className="form-group">
               <input type="text"
                 name="username"

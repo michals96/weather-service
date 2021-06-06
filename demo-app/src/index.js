@@ -72,25 +72,40 @@ const logger = (store) => (next) => (action) => {
 
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
-function sleeper(ms) {
+export function sleeper(ms) {
   return function (x) {
     return new Promise((resolve) => setTimeout(() => resolve(x), ms));
   };
+}
+
+export function requestSent(){
+  return store.dispatch({ type: REQUEST_SENT });
+}
+
+export function requestSucceded(){
+  return store.dispatch({ type: REQUEST_SUCCEEDED });
+}
+
+export function showLoader(){
+  return store.dispatch({ type: REQUEST_SENT });
+}
+
+export function hideLoader(){
+  return store.dispatch({ type: REQUEST_SUCCEEDED });
 }
 
 export const addCityTemp = (cityName) =>
   store.dispatch(
     ((cityName) => {
       return async (dispatch) => {
-        dispatch({ type: REQUEST_SENT });
+        // dispatch({ type: REQUEST_SENT });
         const res = await axios
           .get("http://localhost:8080/weather/" + cityName)
-          .then(sleeper(1000))
           .then(
             (res) => dispatch({ type: ADD_CITY_TEMP, payload: res.data }),  
             (err) => {}
           );
-        dispatch({ type: REQUEST_SUCCEEDED });
+        // dispatch({ type: REQUEST_SUCCEEDED });
       };
     })(cityName)
   );

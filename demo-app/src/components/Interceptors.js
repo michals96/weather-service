@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {showLoader, hideLoader} from "./../index";
 
 export function setToken(){
   axios.interceptors.request.use(
@@ -11,3 +12,13 @@ export function setToken(){
     }
   );
 }
+
+axios.interceptors.request.use(function (config) {
+  showLoader();
+  return config;
+});
+ 
+axios.interceptors.response.use(function (response) {
+  hideLoader();
+  return response;
+});

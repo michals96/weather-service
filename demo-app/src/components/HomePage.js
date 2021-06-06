@@ -3,7 +3,7 @@ import WeatherItems from "./WeatherItems";
 import "../style/weatherList.css";
 import Counter from "./Counter";
 import { connect } from "react-redux";
-import { addCity, addCityTemp, removeCity } from "../index";
+import { addCity, addCityTemp, removeCity } from "../actions/weatherListActions";
 import CustomLoader from "./CustomLoader";
 
 export class Homepage extends Component {
@@ -52,10 +52,6 @@ export class Homepage extends Component {
           
           <WeatherItems entries={this.props.cities} delete={removeCity} />
           {this.props.isLoading && <CustomLoader/>}
-          {/* RENDER HIGH ORDER COMPONENTS:
-          <BlogPost id={1}/>
-          <CommentList/> 
-          */}
         </div>
       </div>
     );
@@ -69,20 +65,15 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps)(Homepage);
 
-// 1. Interceptor + globalny loader* + Loader jako interceptor przy lgoowaniu
-//    CustomLoader powinien mieć w środku info isLoading lub gdzieś tam property
-// 1b. HigherOrderWithLoader na nowy component
-// 1c.  isLoading: state.cities.isLoading, z homepagejs do customloadera
-// 1d. usun sleeper, uzyj no throttling
-// 2. Refactor: clean code + pattern dla redux - reducers, store, actions
-// 3. Refactor dasboard: logout mechanism
-// 4. Know-how : Saga + Episcs + RX JS
-// Thunk + middleware
-//https://www.npmjs.com/package/react-redux-loading
+// TO DO:
+//    -> Loader jako interceptor przy logowaniu 
+//    -> CustomLoader powinien mieć w środku info isLoading lub gdzieś tam property
+//    -> isLoading: state.cities.isLoading, z homepagejs do customloadera
+//    -> usun sleeper, uzyj no throttling
+//    -> Refactor dasboard: logout mechanism
+//    -> Know-how : Saga + Episcs + RX JS
+//    -> HigherOrderWithLoader na nowy component
+//    -> Thunk + middleware
 
-/* 
-   *  Zapytanie do backendu (uzywamy axiosa), 
-      Wyswietlamy loader [GLOBALNIE]
-      Wrocilo zapytanie -> chowamy loader
-      Przecwiczyc HOC 
-*/
+// DONE:
+//    -> refactor: clean code + pattern dla redux - reducers, store, actions

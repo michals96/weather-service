@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { setToken } from "./Interceptors";
 import logo from "../weather.png"
-import { sleeper, requestSent, requestSucceded } from "../index";
 import { connect } from "react-redux";
 import CustomLoader from "./CustomLoader";
 
@@ -36,12 +35,9 @@ class login extends Component {
     };
 
     axios.post(endpoint, user_object)
-    .then(requestSent())
-    .then(sleeper(1000))
     .then(res => {
       localStorage.setItem("authorization", res.data.token);
       setToken();
-      requestSucceded();
       return this.handleDashboard();
     });
   };
@@ -59,7 +55,7 @@ class login extends Component {
         <div class="wrapper">
           <form class="form-signin">
             <h2 class="form-signin-heading">Please login</h2>
-            {this.props.isLoading && <CustomLoader/>}
+            {<CustomLoader/>}
             <div className="form-group">
               <input type="text"
                 name="username"

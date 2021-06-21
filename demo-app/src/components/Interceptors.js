@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {showLoader, hideLoader} from "./../index";
+import {showLoader, hideLoader} from "../actions/loaderActions";
 
 export function setToken(){
   axios.interceptors.request.use(

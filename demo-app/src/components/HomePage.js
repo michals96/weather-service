@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import WeatherItems from "./WeatherItems";
 import "../style/weatherList.css";
 import Counter from "./Counter";
+import NavigationBar from "./NavigationBar";
 import { connect } from "react-redux";
 import { addCity, addCityTemp, removeCity } from "../actions/weatherListActions";
 import CustomLoader from "./CustomLoader";
@@ -36,6 +37,9 @@ export class Homepage extends Component {
   render() {
     return (
       <div className="counterListContainer">
+        <div className="navbar">
+          <NavigationBar/>
+        </div>
         <div className="counter">
           <Counter />
         </div>

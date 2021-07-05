@@ -53,7 +53,6 @@ export class Homepage extends Component {
               <button type="submit">add</button>
             </form>
           </div>
-          
           <WeatherItems entries={this.props.cities} delete={removeCity} />
           {<CustomLoader/>}
         </div>

@@ -17,6 +17,10 @@ class NavigationBar extends Component {
   renderForecast() {
     window.location.href ="/forecast";
   }
+
+  renderWeather() {
+    window.location.href ="/homepage";
+  }
  
   render() {
     return (
@@ -27,7 +31,7 @@ class NavigationBar extends Component {
             title: "Weather",
             isAuth: true,
             onClick: () => {
-              alert("Its coffee time...");
+              this.renderWeather()
             },
           },
           {

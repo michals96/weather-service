@@ -1,13 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
+ import { useSelector } from 'react-redux';
 
-function Counter(props) {
+export function Counter(props) {
+  // let counter;
+  // if(1==2){
+     const counter = useSelector((state) => state.cities.count);
+  // }
+  
+  // Przepisanie komponentu klasowego na funkcyjny i otestowanie
+  // -> przepisanie go na hooki zamiast connect
+  // -> otestowanie go z użyciem hookami
+
   return (
     <section className="section">
       <div className="container">
         <div className="level">
           <div className="level-item">
-            <h2>{props.counter}</h2>
+            <h2>{counter}</h2>
           </div>
         </div>
       </div>
@@ -15,8 +25,10 @@ function Counter(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  counter: state.cities.count,
-});
+export default Counter;
 
-export default connect(mapStateToProps)(Counter);
+// const mapStateToProps = (state) => ({
+//   counter: state.cities.count,
+// });
+
+// export default connect(mapStateToProps)(Counter);

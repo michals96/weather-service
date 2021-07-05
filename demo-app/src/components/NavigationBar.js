@@ -13,6 +13,10 @@ class NavigationBar extends Component {
     localStorage.clear();
     window.location.href = "/";
   }
+
+  renderForecast() {
+    window.location.href ="/forecast";
+  }
  
   render() {
     return (
@@ -20,10 +24,17 @@ class NavigationBar extends Component {
         logo={logo}
         menuItems={[
           {
-            title: "Administration",
+            title: "Weather",
             isAuth: true,
             onClick: () => {
               alert("Its coffee time...");
+            },
+          },
+          {
+            title: "Forecast",
+            isAuth: true,
+            onClick: () => {
+              this.renderForecast()
             },
           },
           {

@@ -4,15 +4,16 @@ import "../style/weatherList.css";
 import Counter from "./Counter";
 import NavigationBar from "./NavigationBar";
 import { connect } from "react-redux";
-import { addCity, addCityTemp, removeCity } from "../actions/weatherListActions";
+import {
+  addCity,
+  addCityTemp,
+  removeCity,
+} from "../actions/weatherListActions";
 import CustomLoader from "./CustomLoader";
 
-export class Homepage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  handleSubmit = (e) => {
+export function HomePage() {
+  // funkcja będzie definiowana zawsze, jak by to zrobić z useCallback?
+  function handleSubmit(e) {
     e.preventDefault();
 
     var correctCity = true;
@@ -32,51 +33,27 @@ export class Homepage extends Component {
     }
 
     correctCity = true;
-  };
-
-  render() {
-    return (
-      <div className="counterListContainer">
-        <div className="navbar">
-          <NavigationBar/>
-        </div>
-        <div className="counter">
-          <Counter />
-        </div>
-        <div className="todoListMain">
-          <div className="header">
-            <form onSubmit={this.handleSubmit}>
-              <input
-                ref={(a) => (this._inputElement = a)}
-                placeholder="Enter city name"
-              ></input>
-              <button type="submit">add</button>
-            </form>
-          </div>
-          <WeatherItems entries={this.props.cities} delete={removeCity} />
-          {<CustomLoader/>}
-        </div>
-      </div>
-    );
   }
+
+  return (
+    <div className="counterListContainer">
+      <div className="navbar">
+        <NavigationBar />
+      </div>
+      <div className="counter">
+        <Counter />
+      </div>
+      <div className="todoListMain">
+        <div className="header">
+          <form onSubmit={handleSubmit}>
+          <input placeholder="Enter city name" ref={(a) => (console.log(_inputElement))}></input>
+              <button type="submit">add</button>
+          </form>
+        </div>
+        {<CustomLoader />}
+      </div>
+    </div>
+  );
 }
 
-const mapStateToProps = (state) => ({
-  cities: state.cities.city_list,
-  isLoading: state.cities.isLoading,
-});
-
-export default connect(mapStateToProps)(Homepage);
-
-// DONE:
-//    -> refactor: clean code + pattern dla redux - reducers, store, actions
-//    -> Loader jako interceptor przy logowaniu 
-//    -> CustomLoader powinien mieć w środku info isLoading lub gdzieś tam property
-//    -> isLoading: state.cities.isLoading, z homepagejs do customloadera
-//    -> usun sleeper, uzyj no throttling
-
-// TO DO:
-//    -> Refactor dasboard: logout mechanism
-//    -> Know-how : Saga + Episcs + RX JS
-//    -> HigherOrderWithLoader na nowy component
-//    -> Thunk + middleware
+export default HomePage;
